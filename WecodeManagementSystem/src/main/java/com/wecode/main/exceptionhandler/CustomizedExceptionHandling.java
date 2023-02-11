@@ -29,4 +29,15 @@ public class CustomizedExceptionHandling extends ResponseEntityExceptionHandler 
 		ResponseEntity<Object> entity = new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
 		return entity;
 	}
+
+//	@ExceptionHandler(MethodArgumentNotValidException.class)
+//	public ResponseEntity<Map<String, String>> handleMethodArgNotValidException(MethodArgumentNotValidException ex) {
+//		Map<String, String> map = new HashMap<>();
+//		ex.getBindingResult().getAllErrors().forEach((error) -> {
+//			String fieldName = ((FieldError) error).getField();
+//			String msg = error.getDefaultMessage();
+//			map.put(fieldName, msg);
+//		});
+//		return new ResponseEntity<Map<String, String>>(map, HttpStatus.BAD_REQUEST);
+//	}
 }

@@ -3,6 +3,8 @@ package com.wecode.main.controller;
 import java.util.Date;
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -32,7 +34,7 @@ public class StudentController {
 
 	@ApiOperation(value = "add a new student", response = StudentModel.class, code = 201)
 	@PostMapping()
-	public ResponseEntity<StudentModel> addStudent(@RequestBody StudentModel model) {
+	public ResponseEntity<StudentModel> addStudent(@Valid @RequestBody StudentModel model) {
 		StudentModel createStudent = service.addStudent(model);
 		return new ResponseEntity<StudentModel>(createStudent, HttpStatus.CREATED);
 	}
@@ -63,7 +65,7 @@ public class StudentController {
 
 	@ApiOperation(value = "update a student by given id", response = Response.class)
 	@PutMapping("/{id}")
-	public ResponseEntity<Response> updateById(@PathVariable Long id, @RequestBody StudentModel model) {
+	public ResponseEntity<Response> updateById(@PathVariable Long id, @Valid @RequestBody StudentModel model) {
 		StudentModel studentModel = service.updateStudentById(id, model);
 		Response response = new Response(new Date(), studentModel);
 		return new ResponseEntity<Response>(response, HttpStatus.OK);
@@ -75,5 +77,10 @@ public class StudentController {
 		StudentModel model = service.removeStudentById(id);
 		Response response = new Response(new Date(), model);
 		return new ResponseEntity<Response>(response, HttpStatus.OK);
+	}
+
+	@GetMapping("/hello")
+	public String msg() {
+		return "This message for testing security in spring boot.";
 	}
 }
