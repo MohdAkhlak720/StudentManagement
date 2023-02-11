@@ -20,7 +20,7 @@ import com.wecode.main.enums.GenderEnum;
 @Table(name = "student")
 public class StudentEntity {
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String name;
 	private String fatherName;

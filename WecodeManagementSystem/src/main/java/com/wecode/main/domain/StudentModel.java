@@ -2,13 +2,23 @@ package com.wecode.main.domain;
 
 import java.util.List;
 
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
+
 import com.wecode.main.enums.GenderEnum;
 
 public class StudentModel {
 	private Long id;
+
+	@NotEmpty
+	@Size(min = 4, message = "Student must be min of 4 Characters.")
 	private String name;
+	@NotEmpty
+	@Size(min = 4, message = "father Name must be min of 4 Characters.")
 	private String fatherName;
 	private GenderEnum gender;
+	@Email
 	private String email;
 	private Long mobileNo;
 	private AddressModel addressModel;

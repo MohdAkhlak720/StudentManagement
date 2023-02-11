@@ -16,7 +16,7 @@ import com.wecode.main.enums.ExpenseEnum;
 @Table(name = "Expense")
 public class ExpenseEntity {
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private Date date;
 	private String name;

@@ -4,12 +4,12 @@ import java.time.LocalDateTime;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
-@ControllerAdvice
+@RestControllerAdvice
 public class CustomizedExceptionHandling extends ResponseEntityExceptionHandler {
 
 	@ExceptionHandler(DataNotFoundException.class)
@@ -32,12 +32,13 @@ public class CustomizedExceptionHandling extends ResponseEntityExceptionHandler 
 
 //	@ExceptionHandler(MethodArgumentNotValidException.class)
 //	public ResponseEntity<Map<String, String>> handleMethodArgNotValidException(MethodArgumentNotValidException ex) {
-//		Map<String, String> map = new HashMap<>();
+//		Map<String, String> resp = new HashMap<>();
 //		ex.getBindingResult().getAllErrors().forEach((error) -> {
 //			String fieldName = ((FieldError) error).getField();
-//			String msg = error.getDefaultMessage();
-//			map.put(fieldName, msg);
+//			String message = error.getDefaultMessage();
+//			resp.put(fieldName, message);
 //		});
-//		return new ResponseEntity<Map<String, String>>(map, HttpStatus.BAD_REQUEST);
+//		return new ResponseEntity<Map<String, String>>(resp, HttpStatus.BAD_REQUEST);
 //	}
+
 }

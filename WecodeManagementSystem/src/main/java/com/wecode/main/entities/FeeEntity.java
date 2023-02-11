@@ -19,7 +19,7 @@ import com.wecode.main.enums.BatchEnum;
 @Table(name = "fee")
 public class FeeEntity {
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private Date date;
 	private Integer fee;

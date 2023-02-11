@@ -59,8 +59,14 @@ public class StudentController {
 	@GetMapping()
 	public ResponseEntity<Response> getAllStudent() {
 		List<StudentModel> models = service.getAllStudent();
-		Response response = new Response(new Date(), models);
-		return new ResponseEntity<Response>(response, HttpStatus.OK);
+		Response response = null;
+		if (models.size() <= 0) {
+			response = new Response(new Date(), null);
+			return new ResponseEntity<Response>(response, HttpStatus.NOT_FOUND);
+		} else {
+			response = new Response(new Date(), models);
+			return new ResponseEntity<Response>(response, HttpStatus.OK);
+		}
 	}
 
 	@ApiOperation(value = "update a student by given id", response = Response.class)

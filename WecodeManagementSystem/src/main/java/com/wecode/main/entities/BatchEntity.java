@@ -19,7 +19,7 @@ import com.wecode.main.enums.BatchEnum;
 @Table(name = "batch")
 public class BatchEntity {
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	@Enumerated(EnumType.STRING)
 	private BatchEnum batchName;
