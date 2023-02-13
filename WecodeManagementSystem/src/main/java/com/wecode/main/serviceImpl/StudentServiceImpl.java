@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import com.wecode.main.domain.AddressModel;
@@ -22,6 +24,7 @@ import com.wecode.main.exceptionhandler.DataNotFoundException;
 import com.wecode.main.repository.AddressRepository;
 import com.wecode.main.repository.CountryRepository;
 import com.wecode.main.repository.StudentRepository;
+import com.wecode.main.response.PageAndSizeResponse;
 import com.wecode.main.service.IStudentService;
 
 @Service
@@ -80,6 +83,29 @@ public class StudentServiceImpl implements IStudentService {
 			models.add(model);
 		}
 		return models;
+	}
+
+	@Override
+	public PageAndSizeResponse getAll(Integer pageNumber, Integer pageSize) {
+		PageRequest page = PageRequest.of(pageNumber, pageSize);
+		Page<StudentEntity> pageEntity = studentRepository.findAll(page);
+		List<StudentEntity> studentEntities = pageEntity.getContent();
+
+		List<StudentModel> studentModels = new ArrayList<>();
+		for (StudentEntity entity : studentEntities) {
+			StudentModel model = new StudentModel();
+			model = entityToModel(entity);
+			studentModels.add(model);
+		}
+		PageAndSizeResponse response = new PageAndSizeResponse();
+		response.setStudentModel(studentModels);
+		response.setPageNumber(pageEntity.getNumber());
+		response.setPageSize(pageEntity.getSize());
+		response.setTotalStudent(pageEntity.getTotalElements());
+		response.setTotalPages(pageEntity.getTotalPages());
+		response.setLastPage(pageEntity.isLast());
+		return response;
+
 	}
 
 	@Override
@@ -177,4 +203,5 @@ public class StudentServiceImpl implements IStudentService {
 		}
 		return model;
 	}
+
 }

@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.wecode.main.domain.StudentModel;
 import com.wecode.main.enums.GenderEnum;
+import com.wecode.main.response.PageAndSizeResponse;
 
 public interface IStudentService {
 
@@ -18,5 +19,7 @@ public interface IStudentService {
 	public StudentModel updateStudentById(Long id, StudentModel studentModel);
 
 	public StudentModel removeStudentById(Long id);
+
+	public PageAndSizeResponse getAll(Integer pageNumber, Integer pageSize);
 
 }

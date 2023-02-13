@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.wecode.main.domain.StudentModel;
 import com.wecode.main.enums.GenderEnum;
+import com.wecode.main.response.PageAndSizeResponse;
 import com.wecode.main.response.Response;
 import com.wecode.main.service.IStudentService;
 
@@ -47,11 +48,21 @@ public class StudentController {
 		return new ResponseEntity<Response>(response, HttpStatus.OK);
 	}
 
-	@ApiOperation(value = "get a gateway by given gender", response = Response.class)
+	@ApiOperation(value = "get a student by given gender", response = Response.class)
 	@GetMapping("/gender")
 	public ResponseEntity<Response> getStudentGender(@RequestParam GenderEnum gender) {
 		List<StudentModel> studentModel = service.getByGender(gender);
 		Response response = new Response(new Date(), studentModel);
+		return new ResponseEntity<Response>(response, HttpStatus.OK);
+	}
+
+	@ApiOperation(value = "get student by count number", response = Response.class)
+	@GetMapping("/")
+	public ResponseEntity<Response> getStudentByPageNumberAndPageSize(
+			@RequestParam(value = "pageNumber", defaultValue = "0", required = false) Integer pageNumber,
+			@RequestParam(value = "pageSize", defaultValue = "10", required = false) Integer pageSize) {
+		PageAndSizeResponse pageAndSizeResponse = service.getAll(pageNumber, pageSize);
+		Response response = new Response(new Date(), pageAndSizeResponse);
 		return new ResponseEntity<Response>(response, HttpStatus.OK);
 	}
 
@@ -85,8 +96,4 @@ public class StudentController {
 		return new ResponseEntity<Response>(response, HttpStatus.OK);
 	}
 
-	@GetMapping("/hello")
-	public String msg() {
-		return "This message for testing security in spring boot.";
-	}
 }
